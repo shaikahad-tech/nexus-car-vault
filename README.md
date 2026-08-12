@@ -1,34 +1,70 @@
 # NEXUS Car Vault
 
-A futuristic 3D car catalog featuring **100 cars across 10 categories**, built with Three.js. Each car has real specifications, and the 3D viewer generates a procedural model on the fly with category-specific styling.
+A futuristic 3D car catalog featuring **100 cars across 10 categories**, built with Three.js. Every car has a real free 3D model source — scraped from the top free 3D model repos on the web.
+
+## What's New
+
+All 100 cars now have **real 3D model sources** — zero procedural-only entries. Models are sourced from 6 different free repositories:
+
+| Source | Count | License | Format |
+|--------|-------|---------|--------|
+| Sketchfab | 50 | CC-BY-4.0 / CC0 | Page link (download GLB) |
+| Poly Pizza | 25 | CC0 / CC-BY-4.0 | GLTF/FBX download |
+| GitHub repos | 12 | MIT / WTFPL / CC-BY | Various |
+| Khronos glTF | 8 | CC-BY-4.0 / CC0 | Direct GLB URL (loadable in-browser) |
+| GetGLB | 3 | CC-BY-4.0 | Direct GLB download |
+| Kenney | 2 | CC0 | Pack download |
 
 ## Features
 
 - **100 Cars** across 10 categories: Hypercar, Supercar, Sports, Muscle, Classic, EV, Luxury, SUV, Concept, Race
-- **Live 3D Viewer** — click any car to see a procedurally generated 3D model with orbit controls
+- **Live 3D Viewer** — click any car to see it in 3D with orbit controls
+- **GLB Model Loading** — 8 cars load real GLB files directly in-browser via Khronos glTF Sample Assets
+- **Procedural Fallback** — cars without directly-loadable GLB files get a procedural 3D car model with category-specific styling
+- **Color Customization** — paint picker in the viewer changes the procedural car color in real-time
 - **Search** by name, brand, or category
-- **Filter** by category and model source (Sketchfab, GitHub, Kenney, Procedural)
+- **Filter** by category and 6 model source types
 - **Sort** by name, year, power, or price
 - **Favorites** — star cars and view your saved collection (persisted in localStorage)
 - **Compare** — select up to 4 cars and view specs side-by-side
-- **Source Attribution** — every car with an external 3D model links back to its original source
+- **Keyboard Navigation** — ← → arrow keys to browse cars, ESC to close viewer
+- **URL Deep-Linking** — share a car view via URL (?car=h001&cat=hypercar)
+- **Source Attribution** — every car shows its model source, license, and a link to the original
 
 ## 3D Model Sources
 
-The catalog references free 3D models from these sources:
+Cars reference free 3D models from these repositories:
 
-| Source | License | Count |
-|--------|---------|-------|
-| Procedural (built-in) | N/A | 82 |
-| Sketchfab | CC-BY-4.0 | 9 |
-| GitHub repos | MIT / WTFPL / CC-BY | 7 |
-| Kenney Car Kit | CC0 | 2 |
+### Sketchfab (50 cars)
+Models from Unity Fan (CC0 concept cars), sebbelon (low-poly BMW/Lamborghini/Mercedes), chibolowebon (Bugatti/Lambo), sezai_bey (Koenigsegg/Nissan), R1peer (Honda), robinmikart (classic cars), RgsDev (vehicle pack), and more.
 
-Cars without an external model use a procedural Three.js car generator that adapts body shape, color, and accessories (spoilers, splitters, wheel design) based on the car's category.
+### Poly Pizza (25 cars)
+Models from Quaternius (CC0 sports cars, SUVs), David Sirera (Dodge Charger/Nissan GTR), PuKkBuMXDD (Ferrari F40), jacobleee05 (Camaro), Kris Tong (Camaro ZL1), ReppenThe303 (Sports Hatchback), Muhammad Reyhan (Mitsubishi/Toyota trucks), Mobolaji (Cybertruck).
+
+### GitHub Repos (12 cars)
+- [Mayawaaan/AudiR8](https://github.com/Mayawaaan/AudiR8) — MIT
+- [ChamikaCSA/3d-tesla-workshop](https://github.com/ChamikaCSA/3d-tesla-workshop) — MIT
+- [furkanyasinengin/mustang-showcase](https://github.com/furkanyasinengin/mustang-showcase) — CC-BY
+- [WoXuS/interactive-mustang-model](https://github.com/WoXuS/interactive-mustang-model) — CC-BY
+- [simti/webgl-toyota-configurator](https://github.com/simti/webgl-toyota-configurator) — MIT
+- [markste-in/c42](https://github.com/markste-in/c42) — WTFPL (Alfa Romeo F1)
+- [ErfanMo77/gltf-research-scenes](https://github.com/ErfanMo77/gltf-research-scenes) — CC0 (Pontiac GTO scene)
+
+### Khronos glTF Sample Assets (8 cars — directly loadable GLB URLs)
+- [CarConcept.glb](https://raw.GithubUserContent.com/KhronosGroup/glTF-Sample-Assets/main/Models/CarConcept/glTF-Binary/CarConcept.glb) — CC-BY-4.0
+- [ToyCar.glb](https://raw.GithubUserContent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ToyCar/glTF-Binary/ToyCar.glb) — CC0
+
+### Kenney (2 cars)
+- [Car Kit](https://kenney.nl/assets/car-kit) — CC0
+
+### GetGLB (3 cars)
+- [Blue Muscle Car](https://www.getglb.com/vehicles/blue-muscle-car) — CC-BY-4.0
+- [Low-Poly City Car](https://www.getglb.com/vehicles/low-poly-city-car) — CC-BY-4.0
 
 ## Tech Stack
 
 - **Three.js** r160 (via ES modules + importmap)
+- **GLTFLoader** for loading .glb files directly in-browser
 - **Vanilla JS** — no framework, no build step
 - **CSS Grid** responsive layout
 - **localStorage** for favorites persistence
@@ -36,10 +72,10 @@ Cars without an external model use a procedural Three.js car generator that adap
 ## Quick Start
 
 ```bash
-# Option 1: Python dev server
+# Python dev server
 python3 serve.py
 
-# Option 2: Any static server
+# Or any static server
 npx serve .
 # or
 python3 -m http.server 8080
@@ -51,26 +87,26 @@ Then open `http://localhost:8080`.
 
 ```
 nexus-car-vault/
-├── index.html          # Entry point with importmap
-├── app.js              # Main application logic
-├── styles.css          # Futuristic dark UI
+├── index.html          # Entry point with importmap + color picker
+├── app.js              # Main application (GLB loading, viewer, search, filter)
+├── styles.css          # Futuristic dark UI with 6 source badge types
 ├── serve.py            # Local dev server
 └── src/
-    └── catalog.js      # 100-car database with specs + sources
+    └── catalog.js      # 100-car database with real model URLs + attribution
 ```
 
 ## Car Data Schema
 
-Each car in `src/catalog.js` includes:
+Each car includes:
 
 ```js
 {
   id, name, brand, year, category,
   power, topSpeed, accel, drivetrain, engine, price,
-  modelSource,    // 'procedural' | 'sketchfab' | 'github' | 'kenney'
-  modelUrl,       // URL to external model (empty if procedural)
+  modelSource,    // 'sketchfab' | 'poly' | 'github' | 'gltf-direct' | 'kenney' | 'getglb'
+  modelUrl,       // URL to the model page or direct GLB file
   license,         // License of the 3D model
-  sourceCredit     // Attribution text
+  sourceCredit     // Attribution text with author name
 }
 ```
 
@@ -80,13 +116,13 @@ Each car in `src/catalog.js` includes:
 |-----|-------|-------------|
 | hypercar | Hypercar | Bugatti Chiron, Koenigsegg Jesko, Rimac Nevera |
 | supercar | Supercar | Ferrari 488, Lamborghini Huracan, McLaren 720S |
-| sports | Sports Car | Porsche 911, BMW M4, Corvette C8 |
+| sports | Sports Car | Porsche 911, BMW M4, Corvette C8, Supra |
 | muscle | Muscle Car | Shelby GT500, Charger Hellcat, Camaro ZL1 |
 | classic | Classic | Ferrari 250 GTO, Jaguar E-Type, Mercedes 300 SL |
-| ev | Electric Vehicle | Tesla Model S Plaid, Lucid Air, Porsche Taycan |
+| ev | Electric Vehicle | Tesla Plaid, Lucid Sapphire, Cybertruck, Taycan |
 | luxury | Luxury | Rolls-Royce Phantom, Bentley Continental GT |
-| suv | SUV / Off-Road | Jeep Wrangler, Lamborghini Urus, G63 AMG |
-| concept | Concept Car | BMW Vision Next 100, Mercedes Vision AVTR |
+| suv | SUV / Off-Road | Jeep Wrangler, Urus, G63 AMG, Defender |
+| concept | Concept Car | BMW Vision Next 100, Mercedes AVTR, Bugatti Bolide |
 | race | Race / Track | Ferrari 488 GTE, Porsche 911 RSR, Alfa Romeo C42 F1 |
 
 ## License
