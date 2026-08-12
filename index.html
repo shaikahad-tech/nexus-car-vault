@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS Car Vault — 100 Cars 3D Catalog</title>
+  <meta name="description" content="Browse 100 cars across 10 categories in interactive 3D. Free GLB models from top open-source repos with procedural fallback.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-text">
+          <span class="brand-name">NEXUS</span>
+          <span class="brand-sub">Car Vault</span>
+        </div>
+      </div>
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search 100 cars by name, brand, or category..." autocomplete="off">
+      </div>
+      <div class="topbar-stats">
+        <span class="stat-chip" id="resultCount">100 cars</span>
+        <button class="fav-btn" id="favBtn" title="Show favorites">★ <span id="favCount">0</span></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Categories</div>
+        <div class="category-list" id="categoryList"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Sort By</div>
+        <select id="sortSelect" class="sort-select">
+          <option value="default">Default Order</option>
+          <option value="name">Name A-Z</option>
+          <option value="name-desc">Name Z-A</option>
+          <option value="year">Year (Newest)</option>
+          <option value="year-asc">Year (Oldest)</option>
+          <option value="power">Power (Highest)</option>
+          <option value="price">Price (Highest)</option>
+        </select>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Model Source</div>
+        <div class="source-filter" id="sourceFilter">
+          <label><input type="checkbox" value="procedural" checked> Procedural</label>
+          <label><input type="checkbox" value="sketchfab" checked> Sketchfab</label>
+          <label><input type="checkbox" value="github" checked> GitHub</label>
+          <label><input type="checkbox" value="kenney" checked> Kenney</label>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <button class="compare-btn" id="compareBtn">Compare (<span id="compareCount">0</span>)</button>
+      </div>
+    </aside>
+
+    <main class="grid-container" id="carGrid"></main>
+
+    <div class="viewer-overlay" id="viewerOverlay">
+      <div class="viewer-header">
+        <div>
+          <h2 id="viewerTitle"></h2>
+          <p id="viewerSubtitle"></p>
+        </div>
+        <button class="viewer-close" id="viewerClose">×</button>
+      </div>
+      <div class="viewer-canvas" id="viewerCanvas"></div>
+      <div class="viewer-specs" id="viewerSpecs"></div>
+      <div class="viewer-source" id="viewerSource"></div>
+    </div>
+
+    <div class="compare-overlay" id="compareOverlay">
+      <div class="compare-header">
+        <h2>Compare Cars</h2>
+        <button class="viewer-close" id="compareClose">×</button>
+      </div>
+      <div class="compare-table" id="compareTable"></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
