@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEXUS Car Vault — 100 Cars 3D Catalog</title>
-  <meta name="description" content="Browse 100 cars across 10 categories in interactive 3D. Free GLB models from top open-source repos with procedural fallback.">
+  <meta name="description" content="Browse 100 cars across 10 categories in interactive 3D. Free GLB models from Sketchfab, Poly Pizza, GitHub, Khronos glTF, Kenney, and GetGLB.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -57,14 +57,20 @@
       <div class="sidebar-section">
         <div class="sidebar-label">Model Source</div>
         <div class="source-filter" id="sourceFilter">
-          <label><input type="checkbox" value="procedural" checked> Procedural</label>
           <label><input type="checkbox" value="sketchfab" checked> Sketchfab</label>
+          <label><input type="checkbox" value="poly" checked> Poly Pizza</label>
           <label><input type="checkbox" value="github" checked> GitHub</label>
-          <label><input type="checkbox" value="kenney" checked> Kenney</label>
+          <label><input type="checkbox" value="gltf-direct" checked> GLB Direct</label>
+          <label><input type="checkbox" value="kenney" checked> Kenney CC0</label>
+          <label><input type="checkbox" value="getglb" checked> GetGLB</label>
         </div>
       </div>
       <div class="sidebar-section">
         <button class="compare-btn" id="compareBtn">Compare (<span id="compareCount">0</span>)</button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Stats</div>
+        <div class="stats-info" id="statsInfo">100 cars · 10 categories · 6 sources</div>
       </div>
     </aside>
 
@@ -76,9 +82,18 @@
           <h2 id="viewerTitle"></h2>
           <p id="viewerSubtitle"></p>
         </div>
-        <button class="viewer-close" id="viewerClose">×</button>
+        <div class="viewer-controls">
+          <div class="color-picker-wrap">
+            <label class="color-label">Paint</label>
+            <input type="color" id="colorPicker" value="#ff3d2e" class="color-picker">
+          </div>
+          <button class="viewer-close" id="viewerClose">×</button>
+        </div>
       </div>
-      <div class="viewer-canvas" id="viewerCanvas"></div>
+      <div class="viewer-canvas" id="viewerCanvas">
+        <div class="viewer-loading" id="viewerLoading"></div>
+      </div>
+      <div class="viewer-nav-hint">← → arrow keys to navigate · ESC to close</div>
       <div class="viewer-specs" id="viewerSpecs"></div>
       <div class="viewer-source" id="viewerSource"></div>
     </div>
